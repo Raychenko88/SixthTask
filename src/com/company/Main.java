@@ -6,12 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
         int a = 1361;
-        int b = 11135;
-//        getCalculation(a,b);
-        int[] arr = getMultiplication(a,b);
-        for (int i = 0; i < arr.length; i++){
-            System.out.println(arr[i]);
-        }
+        int b = 1234;
+        getCalculation(a,b);
+
     }
 
 
@@ -32,9 +29,16 @@ public class Main {
         System.out.println();
         int[] arr = getMultiplication(max,min);
        for (int i = 0; i < arr.length; i++){
-            indent(arr[i],count);
-           System.out.println(arr[i]);
-           count += " ";
+           if (arr.length == 1){
+               count = "";
+               indent(result, count);
+               System.out.println(result);
+               return;
+           }else {
+               indent(arr[i], count);
+               System.out.println(arr[i]);
+               count += " ";
+           }
        }
        count = "";
        indent(result, count);
@@ -50,7 +54,7 @@ public class Main {
 
 
     public static void indent(int number, String str){
-        int count = Integer.parseInt(String.valueOf(str.length() + 0));
+        int count = Integer.parseInt(String.valueOf(str.length()));
        int ident = shiftNumber - String.valueOf(number).length() - count;
        String string = "";
        for (int i = 0; i <= ident; i++){
