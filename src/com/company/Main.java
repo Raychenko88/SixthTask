@@ -2,50 +2,41 @@ package com.company;
 
 
 public class Main {
-    private static int shiftNumber = 20;
+    final static int SHIFT_Number = 20;
 
     public static void main(String[] args) {
         int a = 1361;
-        int b = 1234;
-        getCalculation(a,b);
-
+        int b = 11135;
+        System.out.println(getCalculation(a,b));
     }
 
 
-    public static void getCalculation(int numberOne, int numberTwo){
+    public static String getCalculation(int numberOne, int numberTwo){
         int result = multiplicationResult(numberOne, numberTwo);
         int max = Math.max(numberOne, numberTwo);
         int min = Math.min(numberOne, numberTwo);
         String count = "";
+        StringBuilder show;
+        String n = "\n";
+        show = new StringBuilder((indent(max, count) + (max + n) + (indent(max, count + " ")) + ('*' + n)
+                + (indent(min, count)) + (min + n) + indent(max, count) + (line(max) + n)));
 
-        indent(max,count);
-        System.out.println(max);
-        indent(max,count + " ");
-        System.out.println('*');
-        indent(min,count);
-        System.out.println(min);
-        indent(max,count);
-        line(max);
-        System.out.println();
         int[] arr = getMultiplication(max,min);
        for (int i = 0; i < arr.length; i++){
            if (arr.length == 1){
                count = "";
-               indent(result, count);
-               System.out.println(result);
-               return;
+               show.append(indent(result, count));
+               show.append(result);
+               return show.toString();
            }else {
-               indent(arr[i], count);
-               System.out.println(arr[i]);
+               show.append(indent(arr[i], count));
+               show.append(arr[i]).append(n);
                count += " ";
            }
        }
        count = "";
-       indent(result, count);
-       line(result);
-        System.out.println();
-        indent(result, count);
-        System.out.println(result);
+        show.append(indent(result, count)).append(line(result)).append(n).append(indent(result, count)).append(result).append(n);
+        return show.toString();
     }
 
     public static int multiplicationResult(int one, int two){
@@ -53,24 +44,24 @@ public class Main {
     }
 
 
-    public static void indent(int number, String str){
+    public static String indent(int number, String str){
         int count = Integer.parseInt(String.valueOf(str.length()));
-       int ident = shiftNumber - String.valueOf(number).length() - count;
-       String string = "";
+       int ident = SHIFT_Number - String.valueOf(number).length() - count;
+       StringBuilder string = new StringBuilder();
        for (int i = 0; i <= ident; i++){
-           string += " ";
+           string.append(" ");
 
        }
-        System.out.print(string);
+        return string.toString();
     }
 
-    public static void line(int number){
+    public static String line(int number){
         char line = '_';
-        String longLine = "";
+        StringBuilder longLine = new StringBuilder();
         for (int i = 0; i < String.valueOf(number).length(); i++){
-            longLine += line;
+            longLine.append(line);
         }
-        System.out.print(longLine);
+        return longLine.toString();
     }
 
     public static int[] getMultiplication(int numberOne, int numberTwo){
@@ -80,7 +71,7 @@ public class Main {
         int division = 1;
         int balanceMin = 10;
         int divisionMin = 1;
-        int result = 0;
+        int result;
         String number = "";
         int  smallInt;
         int bigInt = 0;
